@@ -2,7 +2,23 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.1'
     id 'io.spring.dependency-management' version '1.1.0'
+    id "com.github.node-gradle.node" version "3.5.1"
+    id 'org.siouan.frontend-jdk11' version '6.0.0'
 }
+
+apply plugin: 'com.github.node-gradle.node'
+
+node{
+    version = '18.13.0'
+    npmVersion = '8.19.3'
+    download = true
+}
+
+task buildAdmin(type:NpmTask){
+    args = ['run','build']
+}
+
+processResources.dependsOn 'buildAdmin'
 
 repositories {
     mavenCentral()
