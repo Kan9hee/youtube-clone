@@ -14,8 +14,15 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class BlobService implements FileService{
+    //Azure Blob과 연결되는 것을 확인. AccountKey가 노출되지 않는 방법 모색 필요
+
+    private final String constr="AccountName= !CENSORED! ;" +
+            "AccountKey= !CENSORED! ;" +
+            "EndpointSuffix=core.windows.net;" +
+            "DefaultEndpointsProtocol=https;";
+
     private final BlobContainerClient containerClient=new BlobContainerClientBuilder()
-            .connectionString("")
+            .connectionString(constr)
             .containerName("videodata")
             .buildClient();
 
@@ -29,7 +36,7 @@ public class BlobService implements FileService{
             blobClient.upload(file.getInputStream(), file.getSize(), true);
         }catch(IOException ioException){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "An Exception occured while uploading the file");
+                    "An Exception occurred while uploading the file");
         }
 
         return blobClient.getBlobUrl();
