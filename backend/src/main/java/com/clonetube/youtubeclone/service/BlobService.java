@@ -14,12 +14,9 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class BlobService implements FileService{
-    //Azure Blob과 연결되는 것을 확인. AccountKey가 노출되지 않는 방법 모색 필요
+    //VM arguments로 Azure Blob의 AccountKey를 숨김
 
-    private final String constr="AccountName= !CENSORED! ;" +
-            "AccountKey= !CENSORED! ;" +
-            "EndpointSuffix=core.windows.net;" +
-            "DefaultEndpointsProtocol=https;";
+    private String constr=System.getProperty("connectionString");
 
     private final BlobContainerClient containerClient=new BlobContainerClientBuilder()
             .connectionString(constr)
