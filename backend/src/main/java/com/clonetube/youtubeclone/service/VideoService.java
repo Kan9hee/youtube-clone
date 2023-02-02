@@ -1,5 +1,6 @@
 package com.clonetube.youtubeclone.service;
 
+import com.clonetube.youtubeclone.dto.VideoDto;
 import com.clonetube.youtubeclone.model.Video;
 import com.clonetube.youtubeclone.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,37 @@ public class VideoService {
         video.setVideoUrl(videoUrl);
 
         videoRepository.save(video);
+    }
+
+    public VideoDto editVideo(VideoDto videoDto) {
+        //비디오 탐색
+        var savedVideo = getVideoById(videoDto.getId());
+
+        //비디오 매핑
+        savedVideo.setTitle(videoDto.getTitle());
+        savedVideo.setDescription(videoDto.getDescription());
+        savedVideo.setTags(videoDto.getTags());
+        savedVideo.setVideoUrl(videoDto.getVideoUrl());
+        savedVideo.setVideoStatus(videoDto.getVideoStatus());
+
+        //비디오 저장
+        videoRepository.save(savedVideo);
+        return videoDto;
+    }
+
+    public String uploadThumbnail(MultipartFile file, String videoId) {
+        var savedVideo = getVideoById(videoId);
+
+        String thumbnailUrl = blobService.uploadFile(file);
+
+        savedVideo.setThumbnailUrl(thumbnailUrl);
+
+        videoRepository.save(savedVideo);
+        return thumbnailUrl;
+    }
+
+    Video getVideoById(String videoId){
+        return videoRepository.findById(videoId)
+                .orElseThrow(()->new IllegalArgumentException("Cannot find video by id - "+videoId));
     }
 }
