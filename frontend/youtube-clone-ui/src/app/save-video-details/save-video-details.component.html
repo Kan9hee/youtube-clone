@@ -20,7 +20,28 @@
           <mat-option value="PRIVATE">PRIVATE</mat-option>
         </mat-select>
       </mat-form-field>
-      <button type="submit" mat-raised-button color="primary">Save</button>
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Tags</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter fruits">
+          <mat-chip-row *ngFor="let tag of tags"
+                        (removed)="remove(tag)"
+                        [editable]="true"
+                        [aria-description]="'press enter to edit ' + tag">
+            {{tag}}
+            <button matChipRemove *ngIf="removable">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input placeholder="Add tag..."
+                 [matChipInputFor]="chipGrid"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)"/>
+        </mat-chip-grid>
+      </mat-form-field>
+      <div>
+        <button type="submit" mat-raised-button color="primary">Save</button>
+      </div>
     </form>
   </div>
 
