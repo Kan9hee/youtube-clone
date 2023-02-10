@@ -12,6 +12,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.0.2'
     implementation 'com.azure.spring:spring-cloud-azure-starter:5.0.0'
     implementation 'com.azure:azure-messaging-servicebus:7.13.1'
     implementation 'com.azure:azure-sdk-bom:1.2.9'
@@ -22,7 +23,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.0.2'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.0.1'
 }
 
 tasks.named('test') {
