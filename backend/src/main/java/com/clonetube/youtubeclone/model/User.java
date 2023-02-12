@@ -2,6 +2,7 @@ package com.clonetube.youtubeclone.model;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Document(value = "User")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -19,6 +21,7 @@ public class User {
     private String lastName;
     private String fullName;
     private String emailAddress;
+    private String sub;
     private Set<String> subscribedToUsers;
     private Set<String> subscribers;
     private List<String> videoHistory;
