@@ -33,6 +33,11 @@ import { HistoryComponent } from './history/history.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { LikedVideosComponent } from './liked-videos/liked-videos.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { FeaturedComponent } from './featured/featured.component';
+import { VideoCardComponent } from './video-card/video-card.component';
+import {MatCardModule} from '@angular/material/card'
 
 @NgModule({
   declarations: [
@@ -46,7 +51,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HistoryComponent,
     SubscriptionComponent,
     LikedVideosComponent,
-    SidebarComponent
+    SidebarComponent,
+    FeaturedComponent,
+    VideoCardComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +77,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     VgOverlayPlayModule,
     VgBufferingModule,
     MatSnackBarModule,
-    AuthConfigModule
+    AuthConfigModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
   bootstrap: [AppComponent]
