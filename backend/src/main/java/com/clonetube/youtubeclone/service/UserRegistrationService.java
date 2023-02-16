@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class UserRegistrationService {
 
     private final UserRepository userRepository;
 
-    public void registerUser(String tokenValue){
+    public String registerUser(String tokenValue){
 
         //유저 정보 엔드포인트 호출
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -44,19 +45,22 @@ public class UserRegistrationService {
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
             UserInfoDTO userInfoDTO = objectMapper.readValue(body, UserInfoDTO.class);
 
-            User user=new User();
-            user.setFirstName(userInfoDTO.getGivenName());
-            user.setLastName(userInfoDTO.getFamilyName());
-            user.setFullName(userInfoDTO.getName());
-            user.setEmailAddress(userInfoDTO.getEmail());
-            user.setSub(userInfoDTO.getSub());
+            Optional<User> userBySubject = userRepository.findBySub(userInfoDTO.getSub());
+            if(userBySubject.isPresent()){
+                return userBySubject.get().getId();
+            }else{
+                User user=new User();
+                user.setFirstName(userInfoDTO.getGivenName());
+                user.setLastName(userInfoDTO.getFamilyName());
+                user.setFullName(userInfoDTO.getName());
+                user.setEmailAddress(userInfoDTO.getEmail());
+                user.setSub(userInfoDTO.getSub());
 
-            userRepository.save(user);
+                return userRepository.save(user).getId();
+            }
 
         }catch(Exception exception){
             throw new RuntimeException("Exception occurred while registering user", exception);
         }
-
-        //유저가 수정한 정보를 데이터베이스에 저장
     }
 }

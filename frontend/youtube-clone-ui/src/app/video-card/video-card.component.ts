@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
+import { VideoDto } from '../video-dto';
 
 @Component({
   selector: 'app-video-card',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./video-card.component.css']
 })
 export class VideoCardComponent {
-
+  @Input()
+  video!:VideoDto;
 }

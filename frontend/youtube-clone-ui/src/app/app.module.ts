@@ -37,7 +37,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FeaturedComponent } from './featured/featured.component';
 import { VideoCardComponent } from './video-card/video-card.component';
-import {MatCardModule} from '@angular/material/card'
+import {MatCardModule} from '@angular/material/card';
+import { UserComponent } from './user/user.component';
+import { CallbackComponent } from './callback/callback.component'
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import {MatCardModule} from '@angular/material/card'
     LikedVideosComponent,
     SidebarComponent,
     FeaturedComponent,
-    VideoCardComponent
+    VideoCardComponent,
+    UserComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
